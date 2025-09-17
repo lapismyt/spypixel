@@ -6,11 +6,10 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "aiogram>=3.22.0",
+    "aiohttp>=3.12.15",
     "fastapi>=0.116.2",
     "psycopg2-binary>=2.9.10",
     "python-dotenv>=1.1.1",
-    "python-geoip>=1.2",
-    "python-geoip-geolite2>=2015.303",
     "sqlmodel>=0.0.24",
     "user-agents>=2.2.0",
     "uvicorn>=0.35.0",

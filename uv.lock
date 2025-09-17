@@ -410,21 +410,6 @@ wheels = [
 ]
 
 [[package]]
-name = "python-geoip"
-version = "1.2"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/7c/65/cb04188154f7626e897d55f04c2542ba4205352f158cd925d314ad1998ef/python-geoip-1.2.tar.gz", hash = "sha256:b7b11dab42bffba56943b3199e3441f41cea145244d215844ecb6de3d5fb2df5", size = 6661, upload-time = "2014-02-21T07:19:31.478Z" }
-
-[[package]]
-name = "python-geoip-geolite2"
-version = "2015.303"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "python-geoip" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/df/59/3f611ecca70bc91959e3e1ec325f7835d15cc35585af71dbc6c1123be48e/python-geoip-geolite2-2015.0303.tar.gz", hash = "sha256:3562ab598a25c19a62f57a4e00210f9732524c1005343ff4f74a1f0bd412ec98", size = 17125746, upload-time = "2015-03-10T15:28:42.039Z" }
-
-[[package]]
 name = "ruff"
 version = "0.13.0"
 source = { registry = "https://pypi.org/simple" }
@@ -465,11 +450,10 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "aiogram" },
+    { name = "aiohttp" },
     { name = "fastapi" },
     { name = "psycopg2-binary" },
     { name = "python-dotenv" },
-    { name = "python-geoip" },
-    { name = "python-geoip-geolite2" },
     { name = "sqlmodel" },
     { name = "user-agents" },
     { name = "uvicorn" },
@@ -483,11 +467,10 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "aiogram", specifier = ">=3.22.0" },
+    { name = "aiohttp", specifier = ">=3.12.15" },
     { name = "fastapi", specifier = ">=0.116.2" },
     { name = "psycopg2-binary", specifier = ">=2.9.10" },
     { name = "python-dotenv", specifier = ">=1.1.1" },
-    { name = "python-geoip", specifier = ">=1.2" },
-    { name = "python-geoip-geolite2", specifier = ">=2015.303" },
     { name = "sqlmodel", specifier = ">=0.0.24" },
     { name = "user-agents", specifier = ">=2.2.0" },
     { name = "uvicorn", specifier = ">=0.35.0" },
