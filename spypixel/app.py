@@ -145,7 +145,7 @@ async def get_badge_image(badge_name: str, request: Request):
 
         file_content = json.dumps(visitor_data).encode()
         file = BufferedInputFile(
-            file_content, filename=f"visitor_{random.randint(100000, 99999)}.json"
+            file_content, filename=f"visitor_{random.randint(100000, 999999)}.json"
         )
 
         text = "👀 <b>Visit info</b>\n"
