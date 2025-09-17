@@ -7,7 +7,7 @@ from aiogram.types import BufferedInputFile
 from .models import BadgesResponse, Badge, CreateBadge
 from geoip import geolite2, IPInfo
 from user_agents import parse as parse_user_agent
-from utils import generate_svg_badge
+from .utils import generate_svg_badge
 import os
 import random
 import json
