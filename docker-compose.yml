@@ -1,0 +1,29 @@
+services:
+  app:
+    build: .
+    ports:
+      - "23232:23232"
+    environment:
+      - DATABASE_URI=postgresql://spypixel:spypixel_password@db:5433/spypixel
+      - BOT_TOKEN=${BOT_TOKEN}
+      - CHAT_ID=${CHAT_ID}
+      - SECRET=${SECRET}
+    depends_on:
+      - db
+    volumes:
+      - ./spypixel:/app/spypixel
+    restart: unless-stopped
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=spypixel
+      - POSTGRES_USER=spypixel
+      - POSTGRES_PASSWORD=spypixel_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    command: -p 5433
+
+volumes:
+  postgres_data:
