@@ -3,6 +3,14 @@
 # Initialize Let's Encrypt certificates for nginx on port 23232
 # This script uses DNS challenge since we can't use port 80
 
+# Load environment variables from .env file
+if [ -f .env ]; then
+  echo "Loading environment variables from .env file..."
+  export $(grep -v '^#' .env | xargs)
+else
+  echo "Warning: .env file not found. Using default values."
+fi
+
 if ! [ -x "$(command -v docker-compose)" ]; then
   echo 'Error: docker-compose is not installed.' >&2
   exit 1
