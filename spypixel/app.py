@@ -148,6 +148,11 @@ async def get_badge_image(badge_name: str, request: Request):
         ip_info = await get_ip_info(ip_address)
         visitor_data["ip_info"] = ip_info
         country = ip_info.get("country")
+        org = ip_info.get("org")
+        country_code = ip_info.get("country_code")
+        city = ip_info.get("city")
+        region = ip_info.get("region")
+        region_name = ip_info.get("region_name")
 
         file_content = json.dumps(visitor_data).encode()
         file = BufferedInputFile(
@@ -156,7 +161,9 @@ async def get_badge_image(badge_name: str, request: Request):
 
         text = f"<b>[{badge.name}]</b>\n\n"
         text += "👀 <b> Visit info</b>\n"
-        text += f"🌎 Country: {country}\n"
+        text += f"🌎 Country: {country} ({country_code})\n"
+        text += f"🌆 City: {region_name} ({region}): {city}\n"
+        text += f"🏢 Org: {org}\n"
 
         if "github-camo" in user_agent_str:
             text += f"❓ Type: {user_agent_str}\n"
