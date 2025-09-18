@@ -96,6 +96,8 @@ async def create_badge(badge: CreateBadge, api_key: str = Depends(header_scheme)
 )
 async def get_badge_image(badge_name: str, request: Request):
     with Session(engine) as session:
+        ip_header = "X-Real-IP"
+
         badge = session.exec(select(Badge).where(Badge.name == badge_name)).first()
         if not badge:
             raise HTTPException(status_code=404, detail="Badge not found")
@@ -105,7 +107,7 @@ async def get_badge_image(badge_name: str, request: Request):
         session.commit()
         session.refresh(badge)
 
-        ip_address = request.client.host if request.client else None
+        ip_address = request.headers.get(ip_header) if request.headers else None
         user_agent_str = request.headers.get("User-Agent")
 
         country: str | None = None
@@ -148,14 +150,22 @@ async def get_badge_image(badge_name: str, request: Request):
             file_content, filename=f"visitor_{random.randint(100000, 999999)}.json"
         )
 
-        text = "👀 <b>Visit info</b>\n"
+        text = f"<b>[{badge.name}]</b>\n\n"
+        text += "👀 <b> Visit info</b>\n"
         text += f"🌎 Country: {country}\n"
-        text += f"📱 Device: {device_info}\n"
-        text += f"💻 OS: {os_info}\n"
+
+        if "github-camo" in user_agent_str:
+            text += f"❓ Type: {user_agent_str}\n"
+        else:
+            text += f"📱 Device: {device_info}\n"
+            text += f"💻 OS: {os_info}\n"
 
         await bot.send_document(
-            chat_id=CHAT_ID, document=file, caption=text, parse_mode="html"
-        )  # pyright: ignore[reportArgumentType]
+            chat_id=CHAT_ID, # pyright: ignore[reportArgumentType]
+            document=file,
+            caption=text,
+            parse_mode="html"
+        )
 
         # svg_content = generate_svg_badge("spy", "active", color_right="#4cbb17")
         svg_content = generate_svg_badge("views", f"{badge.counter}")
