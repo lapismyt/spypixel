@@ -47,18 +47,22 @@ async def get_ip_info(ip_address: str | None) -> dict:
     try:
         timeout = aiohttp.ClientTimeout(total=5)
         async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.get(f"https://ipapi.co/{ip_address}/json/") as response:
+            async with session.get(f"http://ip-api.com/json/{ip_address}") as response:
                 if response.status == 200:
                     data = await response.json()
                     return {
                         "country": data.get("country_name"),
-                        "country_code": data.get("country_code"),
+                        "country_code": data.get("countryCode"),
                         "city": data.get("city"),
+                        "zip": data.get("zip"),
                         "region": data.get("region"),
-                        "latitude": data.get("latitude"),
-                        "longitude": data.get("longitude"),
+                        "region_name": data.get("regionName"),
+                        "latitude": data.get("lat"),
+                        "longitude": data.get("lon"),
                         "timezone": data.get("timezone"),
                         "org": data.get("org"),
+                        "isp": data.get("isp"),
+                        "as": data.get("as"),
                     }
     except Exception:
         # If the service fails, return empty data
